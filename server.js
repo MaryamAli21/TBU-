@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require ('cors');
+const cors = require('cors');
 const morgan = require('morgan');
 const MongoStore = require('connect-mongo');
 const methodOverride = require('method-override');
@@ -15,6 +15,7 @@ const app = express();
 
 const authController = require('./controllers/auth.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
+const servicesRoute = require('./routes/services.js');
 
 require('./config/database');
 
@@ -36,21 +37,22 @@ app.use(
       })
     })
   );
-  
-app.use(passUserToView);
+
+// app.use(passUserToView);
 
 app.use('/auth', authController);
-  
+app.use('/api/services', servicesRoute);
+
 app.use(express.static(path.join(__dirname, "public")));
-  
+
 app.get('/', (req, res) => {
-    res.render('index.ejs');
-  });
+  res.render('index.ejs');
+});
 
 app.set('view engine', 'ejs');
 
 
 
 app.listen(port, () => {
-    console.log("Server listening on port", port)
-  });
+  console.log("Server listening on port", port)
+});
