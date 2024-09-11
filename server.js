@@ -2,8 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-
-const verifyToken = require("./middleware/verifyToken.js");
 const authController = require('./controllers/auth.js');
 const inquiryRoute = require('./routes/services.js');
 
@@ -21,8 +19,7 @@ app.use(cors());
 
 app.post('/sign-in', authController);
 
-app.use(verifyToken);
-app.use('/api/services', inquiryRoute);
+app.use('/api/inquiries', inquiryRoute);
 
 app.listen(port, () => {
   console.log("Server listening on port", port)
