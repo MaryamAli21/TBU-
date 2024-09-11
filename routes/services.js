@@ -1,24 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const Service = require('../models/service');
+const Inquiry = require('../models/inquiry');
 
-// Get all services
 router.get('/', async (req, res) => {
     try {
-        const services = await Service.find();
+        const inquiries = await Inquiry.find();
 
-        res.json(services);
+        res.json(inquiries);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
 
-// Create a new enquiry (service)
 router.post('/', async (req, res) => {
-    const service = new Service(req.body);
+    const inquiry = new Inquiry(req.body);
     try {
-        const savedService = await service.save();
-        res.status(201).json(savedService);
+        const savedInquiry = await inquiry.save();
+        res.status(201).json(savedInquiry);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
