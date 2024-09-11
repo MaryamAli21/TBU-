@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 
-const verifyToken = require("./middlewares/verify-token");
+const verifyToken = require("./middleware/verifyToken.js");
 const authController = require('./controllers/auth.js');
 const inquiryRoute = require('./routes/services.js');
 
@@ -19,11 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
+app.use('/auth', authController);
 
 app.use(verifyToken);
-
-
-app.use('/auth', authController);
 app.use('/api/services', inquiryRoute);
 
 app.listen(port, () => {
