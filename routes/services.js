@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     try {
         const inquiries = await Inquiry.find();
 
-        res.json(inquiries);
+        res.status(200).json(inquiries);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
